@@ -8,3 +8,4 @@ python file name : api.py
 
 save the image in local in the name :  draw.png
 process the draw.png to find 5 most color used in image ad border 
+sample output image :step1,step2,step3
