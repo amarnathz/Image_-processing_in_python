@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+  <head>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles.css') }}"
+    />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+    <style>
+      body{
+        background-color: rgb(213, 220, 226);
+      }
+      div > span > p{
+        padding: 20px;
+        margin: 2px;
+        font-size: 25px;
+        font-style: bold;
+        color: aliceblue;
+        text-shadow: 1px 2px #000000;
+        text-align: center;
+        margin-right:300px ;
+      margin-left: 300px;
+      }
+      #bor{
+        padding: 20px;
+        margin: 2px;
+        font-size: 25px;
+        font-style: bold;
+        color: aliceblue;
+        text-shadow: 1px 2px #000000;
+        text-align: center;
+        margin-right:300px ;
+      margin-left: 300px;
+      }
+      </style>
+  </head>
+  <body>
+    <div class="upload">
+      <form action="/uploader" method="POST" enctype="multipart/form-data">
+        <p>
+          <input
+            type="file"
+            accept="image/*"
+            name="file"
+            id="file"
+            onchange="loadFile(event)"
+            style="display: none"
+          />
+        </p>
+        <p>
+          <label for="file" style="cursor: pointer">Upload Image</label>
+          <span><button type="submit">Submit</button></span>
+        </p>
+        <p><img id="output" width="210" height="250" /></p>
+      </form>
+    </div>
+  
+    {% if data %}
+<!-- primary color -->
+    <h3
+      style="font-family: Cambria, Cochi, serif; margin: 20x; margin-left: 50px;text-align: center;"
+    >
+      primary logo color of most 5 dominant-colors used:
+    </h3>
+
+    
+    <div >
+      <span >
+        <p id="id1">{{data[0]}}</p>
+        <p id="id2">{{ data[1] }}</p>
+        <p id="id3">{{ data[2] }}</p>
+        <p id="id4">{{ data[3] }}</p>
+        <p id="id5">{{ data[4] }}</p>
+      </span>
+    </div>
+
+<!-- border color -->
+    <h3  style="font-family: Cambria, Cochi, serif;margin-top:10px;text-align: center;">
+      border color 
+    </h3>
+     <p id="bor" >
+      
+     </p>
+
+    {% endif %}
+   
+
+    
+
+    <script>
+
+         var loadFile = function (event) {
+        $("#output").show();   
+        $("div > form > p > label").css("background-color", "green");
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    
+      "{% if data %}"
+      $("body").css("background-color", "#c7c7c7");
+      $("div > span > #id1").css("background-color", "{{data[0]}}");
+      $(" div > span >  #id2").css("background-color", "{{data[1]}}");
+      $(" div > span >  #id3").css("background-color", "{{data[2]}}");
+      $(" div > span >  #id4").css("background-color", "{{data[3]}}");
+      $(" div > span >  #id5").css("background-color", "{{data[4]}}");
+      var check = "{{data[6]}}"
+      if(check =="0"){
+        $("#bor").text("No border color ");
+      }
+      else{
+        $("#bor").text("border color : "+"{{data[5]}}");
+        $("#bor").css("background-color", "{{data[5]}}");
+      }
+
+      console.log(typeof (check) );
+     " {% endif %}"
+     
+      //jquery
+      $(document).ready(function () {
+        $("#output").hide();
+      });
+     
+   
+    </script>
+  </body>
+</html>
